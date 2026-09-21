@@ -13,8 +13,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
-html,body{margin:0;padding:0;overscroll-behavior:none}
-body{background:#1a0b3b;font-family:'Baloo Bhaijaan 2',sans-serif;display:flex;justify-content:center;touch-action:manipulation}
+html,body{margin:0;padding:0;overscroll-behavior:none;max-width:100%}
+body{background:#1a0b3b;font-family:'Baloo Bhaijaan 2',sans-serif;display:flex;justify-content:center;touch-action:manipulation;overflow-x:hidden}
 #app{width:100%;max-width:460px;height:100vh;height:100dvh;position:relative;overflow:hidden;background:#5a189a}
 .screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden}
 .screen.active{display:flex}
@@ -82,7 +82,7 @@ button{font-family:inherit;touch-action:manipulation}
 .gtitle{color:#555;font-weight:800;font-size:17px;margin-right:auto;background:#ffffffc9;border-radius:12px;padding:2px 12px}
 .bubble-row{display:flex;gap:8px;align-items:flex-start;padding:0 12px;position:relative;z-index:2}
 #gameArea{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;z-index:1}
-#gameArea>*:not(.decor){position:relative;z-index:1}
+#gameArea>*:not(.decor):not(.balloon){position:relative;z-index:1}
 .decor{position:absolute;inset:0;pointer-events:none;z-index:0}
 .decor span{position:absolute;font-size:26px;opacity:.25;animation:floaty 6s ease-in-out infinite}
 #lumiBtn{position:absolute;bottom:10px;left:10px;z-index:5;cursor:pointer;animation:bop 2s infinite}
@@ -96,11 +96,11 @@ button{font-family:inherit;touch-action:manipulation}
 
 /* --- البالونات --- */
 .pop-area{cursor:crosshair}
-.balloon{position:absolute;bottom:-120px;width:64px;height:80px;border-radius:50% 50% 48% 48%/58% 58% 42% 42%;cursor:pointer;z-index:2;animation:riseUp linear forwards;box-shadow:inset -6px -8px 0 #00000018}
+.balloon{position:absolute;bottom:-120px;width:66px;height:84px;border-radius:50% 50% 48% 48%/58% 58% 42% 42%;cursor:pointer;z-index:3;box-shadow:inset -6px -8px 0 #00000018;will-change:transform}
 .balloon::after{content:'';position:absolute;left:50%;top:100%;width:2px;height:44px;background:#ffffffaa}
-.balloon.bubble{border-radius:50%;width:72px;height:72px}
+.balloon.bubble{border-radius:50%;width:74px;height:74px}
 .balloon.bubble::after{display:none}
-@keyframes riseUp{to{transform:translateY(-115vh)}}
+@keyframes riseUp{from{transform:translateY(0)}to{transform:translateY(-130vh)}}
 
 /* --- السلال --- */
 .sort-stage{flex:1;display:flex;align-items:center;justify-content:center}
@@ -400,13 +400,14 @@ const ENGINES={
    const b=div('balloon'+(cfg.style==='bubble'?' bubble':''));
    b.style.background=`radial-gradient(circle at 35% 30%, #ffffffaa, ${COLORS[c].hex})`;
    b.style.left=(6+Math.random()*76)+'%';
-   b.style.animationDuration=(cfg.dur*(.8+Math.random()*.5)/1000)+'s';
+   const dur=(cfg.dur*(.8+Math.random()*.5)/1000).toFixed(2);
+   b.style.animation=`riseUp ${dur}s linear forwards`;
    b.onclick=()=>{if(Game.done)return;
     if(c===cfg.color){Sound.pop();burst(b,COLORS[c].hex);floatText(b,'+⭐');b.remove();progress()}
-    else fail(b,'دي مش صح! 👀')};
+    else fail(null,`دي مش ${COLORS[cfg.color].f}! فرقّع الصح 👀`)};
    b.addEventListener('animationend',()=>b.remove());
    area.append(b)};
-  spawn();spawn();
+  spawn();spawn();spawn();
   Game.timers.push(setInterval(spawn,cfg.speed))},
 
  sort(cfg){const items=shuffle(cfg.items);Game.total=items.length;updProg();
