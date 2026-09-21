@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<title>🌈 مغامرة الألوان</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23fdf3ff'/%3E%3Cpath d='M14 70a36 36 0 0 1 72 0' stroke='%23e63946' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M22 70a28 28 0 0 1 56 0' stroke='%23f77f00' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M30 70a20 20 0 0 1 40 0' stroke='%23ffc300' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M38 70a12 12 0 0 1 24 0' stroke='%2343aa8b' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cg transform='translate(22,20) scale(.56)'%3E%3Cpath d='M50,10 L61,37 L90,39 L68,58 L75,86 L50,71 L25,86 L32,58 L10,39 L39,37 Z' fill='%23ffd93d' stroke='%23f5b301' stroke-width='10' stroke-linejoin='round'/%3E%3Ccircle cx='43' cy='46' r='4' fill='%23333'/%3E%3Ccircle cx='57' cy='46' r='4' fill='%23333'/%3E%3Cpath d='M42,54 Q50,63 58,54' stroke='%23333' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%23fdf3ff'/%3E%3Cpath d='M14 70a36 36 0 0 1 72 0' stroke='%23e63946' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M22 70a28 28 0 0 1 56 0' stroke='%23f77f00' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M30 70a20 20 0 0 1 40 0' stroke='%23ffc300' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cpath d='M38 70a12 12 0 0 1 24 0' stroke='%2343aa8b' stroke-width='6' fill='none' stroke-linecap='round'/%3E%3Cg transform='translate(22,20) scale(.56)'%3E%3Cpath d='M50,10 L61,37 L90,39 L68,58 L75,86 L50,71 L25,86 L32,58 L10,39 L39,37 Z' fill='%23ffd93d' stroke='%23f5b301' stroke-width='10' stroke-linejoin='round'/%3E%3Ccircle cx='43' cy='46' r='4' fill='%23333'/%3E%3Ccircle cx='57' cy='46' r='4' fill='%23333'/%3E%3Cpath d='M42,54 Q50,63 58,54' stroke='%23333' stroke-width='3' fill='none' stroke-linecap='round'/%3E%3C/g%3E%3C/svg%3E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="مغامرة الألوان">
+<meta name="theme-color" content="#5a189a">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+Bhaijaan+2:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
+html,body{margin:0;padding:0;overscroll-behavior:none}
+body{background:#1a0b3b;font-family:'Baloo Bhaijaan 2',sans-serif;display:flex;justify-content:center;touch-action:manipulation}
+#app{width:100%;max-width:460px;height:100vh;height:100dvh;position:relative;overflow:hidden;background:#5a189a}
+.screen{position:absolute;inset:0;display:none;flex-direction:column;overflow:hidden}
+.screen.active{display:flex}
+button{font-family:inherit;touch-action:manipulation}
+
+/* ===== أزرار عامة ===== */
+.btn{font-weight:800;border:none;border-radius:18px;padding:12px 22px;font-size:20px;cursor:pointer;background:#fff;color:#5a189a;box-shadow:0 5px 0 #00000025;transition:transform .08s}
+.btn:active{transform:translateY(3px)}
+.btn.main{background:linear-gradient(135deg,#ffb703,#fb8500);color:#fff}
+.btn.big{font-size:26px;padding:16px 44px}
+.btn.small{padding:10px 16px;font-size:18px}
+.cbtn{width:42px;height:42px;border-radius:14px;border:none;background:#ffffffd9;font-size:20px;cursor:pointer;box-shadow:0 3px 6px #0002;flex-shrink:0}
+.pill{background:#ffffffd9;border-radius:999px;padding:4px 14px;font-weight:800;color:#444;font-size:16px;white-space:nowrap}
+.pill.pulse{animation:popIn .3s}
+@keyframes popIn{0%{transform:scale(1.35)}100%{transform:scale(1)}}
+.shake{animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-7px)}40%,80%{transform:translateX(7px)}}
+
+/* ===== شاشة البداية ===== */
+.splash{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px;position:relative;overflow:hidden;background:linear-gradient(180deg,#fdf0ff,#e0c3fc 55%,#c0b7ff)}
+.splash h1{font-size:36px;color:#5a189a;margin:4px 0 0;text-shadow:0 2px 0 #fff}
+.splash p{color:#6d3fb0;font-weight:700;margin:0 0 18px}
+.splash .hint{color:#8a6fc0;font-size:14px;margin-top:14px}
+.floaties span{position:absolute;font-size:28px;opacity:.5;left:var(--x);animation:floaty 5s ease-in-out infinite;animation-delay:var(--d)}
+@keyframes floaty{50%{transform:translateY(-26px)}}
+
+/* ===== الخريطة ===== */
+#screen-map{background:linear-gradient(180deg,#9775fa,#5f3dc4)}
+.mhead{display:flex;align-items:center;gap:8px;padding:12px 14px 4px;flex-wrap:wrap}
+.mtag{color:#fff;font-weight:800;font-size:20px;margin-right:auto}
+.mstats{display:flex;gap:6px;align-items:center}
+.map-scroll{flex:1;overflow-y:auto;padding:8px 0 70px;display:flex;flex-direction:column}
+.lumi-hello{display:flex;align-items:center;gap:8px;justify-content:center;color:#ffe066;font-weight:800;font-size:18px;padding:6px}
+.map-line{width:6px;height:30px;margin:0 auto;background:repeating-linear-gradient(#ffffff66 0 8px,transparent 8px 16px);border-radius:3px;flex-shrink:0}
+.wnode{width:82%;margin:2px auto;padding:12px 22px;border-radius:26px;border:none;cursor:pointer;color:#fff;display:flex;flex-direction:column;align-items:center;gap:0;background:linear-gradient(135deg,#ffffff30,#00000025),var(--c);box-shadow:0 6px 0 #00000040;flex-shrink:0}
+.wnode:active{transform:scale(.97)}
+.wch{font-size:44px;line-height:1.1}
+.wname{font-weight:800;font-size:20px}
+.wstars{font-size:14px;font-weight:700;opacity:.95}
+.wnode.locked{filter:grayscale(.85);opacity:.85}
+.map-end{font-size:40px;text-align:center;padding-bottom:10px}
+.rewards-row{position:absolute;bottom:8px;left:0;right:0;display:flex;gap:6px;justify-content:center;flex-wrap:wrap;padding:0 10px;z-index:5}
+.rchip{background:#ffffff38;color:#fff;border-radius:999px;padding:2px 12px;font-size:13px;font-weight:700}
+.rchip.dim{opacity:.75}
+
+/* ===== شاشة المستويات ===== */
+.whead{display:flex;align-items:center;gap:10px;padding:14px;background:linear-gradient(135deg,#ffffff25,#00000025),var(--c)}
+.wtitle{color:#fff;font-weight:800;font-size:24px}
+.wstory{display:flex;gap:8px;align-items:flex-start;padding:12px}
+.char{font-size:38px;background:#fff;border-radius:50%;width:58px;height:58px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px #0002;flex-shrink:0;animation:bop 2.4s ease-in-out infinite}
+@keyframes bop{50%{transform:translateY(-6px)}}
+.bubble{background:#fff;border-radius:16px;padding:10px 14px;font-weight:700;color:#555;position:relative;box-shadow:0 4px 10px #0002;font-size:17px;line-height:1.5}
+.bubble::before{content:'';position:absolute;right:-8px;top:18px;border:8px solid transparent;border-right-color:#fff}
+.bubble.bump{animation:bump .25s}
+@keyframes bump{0%{transform:scale(.92)}55%{transform:scale(1.05)}100%{transform:scale(1)}}
+.levels{flex:1;overflow-y:auto;display:flex;flex-direction:column;align-items:center;gap:12px;padding:6px 0 30px}
+.lv{width:230px;display:flex;flex-direction:column;align-items:center;background:#fff;border:none;border-radius:20px;padding:10px;font-weight:800;font-size:22px;color:#5f3dc4;box-shadow:0 5px 0 #00000025;cursor:pointer}
+.lv:active{transform:scale(.96)}
+.lv .lvstars{font-size:14px;height:20px}
+.lv.locked{background:#e9ecef;color:#adb5bd}
+.lumi-tip{display:flex;align-items:center;gap:8px;justify-content:center;color:#5f3dc4;font-weight:700;font-size:14px;padding:4px 0 14px}
+
+/* ===== شاشة اللعب ===== */
+.gbar{display:flex;align-items:center;gap:8px;padding:10px 12px;position:relative;z-index:2}
+.gtitle{color:#555;font-weight:800;font-size:17px;margin-right:auto;background:#ffffffc9;border-radius:12px;padding:2px 12px}
+.bubble-row{display:flex;gap:8px;align-items:flex-start;padding:0 12px;position:relative;z-index:2}
+#gameArea{flex:1;position:relative;overflow:hidden;display:flex;flex-direction:column;z-index:1}
+#gameArea>*:not(.decor){position:relative;z-index:1}
+.decor{position:absolute;inset:0;pointer-events:none;z-index:0}
+.decor span{position:absolute;font-size:26px;opacity:.25;animation:floaty 6s ease-in-out infinite}
+#lumiBtn{position:absolute;bottom:10px;left:10px;z-index:5;cursor:pointer;animation:bop 2s infinite}
+
+/* --- العناصر --- */
+.find-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-content:center;padding:16px;flex:1}
+.item{width:74px;height:74px;font-size:42px;background:#fff;border:none;border-radius:20px;box-shadow:0 4px 10px #0002;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:transform .15s,opacity .3s}
+.item:active{transform:scale(.9)}
+.item.found{opacity:.28;transform:scale(.72)}
+.find-grid.dense .item{width:57px;height:57px;font-size:31px;border-radius:16px}
+
+/* --- البالونات --- */
+.pop-area{cursor:crosshair}
+.balloon{position:absolute;bottom:-120px;width:64px;height:80px;border-radius:50% 50% 48% 48%/58% 58% 42% 42%;cursor:pointer;z-index:2;animation:riseUp linear forwards;box-shadow:inset -6px -8px 0 #00000018}
+.balloon::after{content:'';position:absolute;left:50%;top:100%;width:2px;height:44px;background:#ffffffaa}
+.balloon.bubble{border-radius:50%;width:72px;height:72px}
+.balloon.bubble::after{display:none}
+@keyframes riseUp{to{transform:translateY(-115vh)}}
+
+/* --- السلال --- */
+.sort-stage{flex:1;display:flex;align-items:center;justify-content:center}
+.sort-item{font-size:82px;background:#fff;padding:14px 30px;border-radius:26px;box-shadow:0 6px 14px #0002;transition:transform .35s,opacity .35s}
+.sort-item.fly{transform:translateY(130px) scale(.25);opacity:0}
+.baskets{display:flex;gap:10px;padding:12px;justify-content:center}
+.basket{flex:1;max-width:112px;border:none;border-radius:18px;padding:8px;color:#fff;font-weight:800;font-size:16px;display:flex;flex-direction:column;align-items:center;box-shadow:inset 0 -7px 0 #00000025,0 4px 8px #0002;cursor:pointer}
+.basket .bk{font-size:30px}
+.basket:active{transform:scale(.94)}
+
+/* --- الأشكال --- */
+.cs-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;align-content:center;padding:12px;flex:1}
+.cs-card{width:80px;height:94px;background:#fff;border:none;border-radius:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px #0002;cursor:pointer}
+.cs-card:active{transform:scale(.92)}
+.shape{transition:background .3s}
+.count-wrap{display:flex;flex-direction:column;flex:1}
+.count-wrap .counter{margin:8px auto 0;align-self:center}
+
+/* --- الأحجام --- */
+.size-card{width:94px;height:112px;background:#fff;border:none;border-radius:18px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px #0002;cursor:pointer}
+.size-card:active{transform:scale(.92)}
+
+/* --- الذاكرة --- */
+.mem-grid{display:grid;gap:10px;padding:16px;width:100%;max-width:350px;margin:auto;align-content:center;flex:1}
+.mcard{aspect-ratio:3/4;border:none;background:none;padding:0;cursor:pointer;perspective:600px}
+.mcard .inner{transition:transform .4s;transform-style:preserve-3d;position:relative;width:100%;height:100%}
+.mcard.flip .inner{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:14px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 8px #0002}
+.face.front{background:linear-gradient(135deg,#9b5de5,#5a189a);color:#fff;font-size:28px;font-weight:800}
+.face.back{background:#fff;transform:rotateY(180deg)}
+.mcard.matched .face.back{box-shadow:inset 0 0 0 4px #ffd93d}
+.mcard.matched{animation:popIn .35s}
+
+/* --- احفظ الشكل --- */
+.look-stage{flex:1;display:flex;align-items:center;justify-content:center}
+.look-big{width:130px;height:130px;background:#fff;border-radius:26px;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 14px #0002}
+.look-big.hide .shape{opacity:0}
+.look-big .shape{transition:opacity .3s}
+
+/* --- التلوين --- */
+.paint-stage{flex:1;display:flex;align-items:center;justify-content:center}
+.palette{display:flex;gap:12px;justify-content:center;padding:16px}
+.swatch{width:50px;height:50px;border-radius:50%;border:4px solid #fff;box-shadow:0 3px 8px #0003;cursor:pointer;transition:transform .15s}
+.swatch.sel{outline:4px solid #ffd93d;transform:scale(1.18)}
+.paint-area .shape{cursor:pointer}
+.paint-area .shape.painted{animation:popIn .35s}
+
+/* --- البناء --- */
+.build-scene{flex:1;display:flex;align-items:center;justify-content:center}
+.house{display:flex;flex-direction:column;align-items:center}
+.roof{width:0;height:0;border-left:112px solid transparent;border-right:112px solid transparent;border-bottom:72px solid #e07a5f;filter:drop-shadow(0 4px 4px #0002)}
+.wall{width:224px;background:#fff;border-radius:0 0 20px 20px;padding:14px;display:flex;justify-content:center;box-shadow:0 6px 14px #0002}
+.slots{display:flex;gap:10px}
+.slot{width:46px;height:46px;border-radius:12px;background:#f8f9fa;border:3px dashed #bbb;display:flex;align-items:center;justify-content:center;font-size:24px}
+.slot.filled{border-style:solid;border-color:#2f9e44}
+.tray{display:flex;gap:10px;justify-content:center;padding:14px;flex-wrap:wrap}
+.item.small{width:58px;height:58px;font-size:32px;border-radius:16px}
+
+/* --- قوس قزح --- */
+.rb-sky{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px}
+.rb-slot{height:20px;border-radius:12px;border:3px dashed #ffffff88;transition:background .3s}
+.rb-slot.on{border-color:transparent;animation:popIn .3s}
+.band{height:44px;width:92px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 3px 6px #0003}
+.band:active{transform:scale(.93)}
+
+/* --- تأثيرات --- */
+.particle{position:absolute;width:10px;height:10px;border-radius:50%;z-index:60;pointer-events:none}
+.floaty{position:absolute;font-size:22px;font-weight:800;z-index:60;pointer-events:none;color:#f59f00;text-shadow:0 1px 0 #fff}
+.confetti{position:absolute;top:-24px;width:10px;height:15px;border-radius:3px;z-index:60}
+.flyer{position:absolute;z-index:99;display:flex;align-items:center;justify-content:center;pointer-events:none;background:#fff;border-radius:16px;box-shadow:0 6px 14px #0003}
+.toast{position:absolute;bottom:96px;left:50%;transform:translateX(-50%);background:#000000c9;color:#fff;padding:10px 20px;border-radius:999px;z-index:70;font-weight:700;animation:toastIn 1.8s forwards}
+@keyframes toastIn{0%{opacity:0;transform:translate(-50%,10px)}12%,80%{opacity:1;transform:translate(-50%,0)}100%{opacity:0}}
+
+/* --- النصر --- */
+#overlay{position:absolute;inset:0;display:none;align-items:center;justify-content:center;background:#00000080;z-index:50}
+#overlay.show{display:flex}
+.vcard{background:#fff;border-radius:28px;padding:26px 30px;text-align:center;animation:popIn .35s;max-width:88%}
+.vtitle{font-size:28px;font-weight:800;color:#5a189a}
+.vstars{font-size:44px;margin:8px 0;display:flex;gap:6px;justify-content:center}
+.vstar{filter:grayscale(1);opacity:.3;transform:scale(.8)}
+.vstar.earned{filter:none;opacity:1;animation:starPop .5s}
+@keyframes starPop{0%{transform:scale(.3) rotate(-30deg)}60%{transform:scale(1.4) rotate(10deg)}100%{transform:scale(1)}}
+.vgems{font-weight:800;color:#e8590c;font-size:19px}
+.vreward{margin-top:8px;background:#fff3bf;border-radius:14px;padding:8px 14px;font-weight:800;color:#8a6d00;animation:popIn .4s .8s backwards}
+.vbtns{display:flex;gap:10px;justify-content:center;margin-top:16px}
+
+/* --- النهاية --- */
+.finale{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:16px;background:linear-gradient(180deg,#2b0a54,#7b2cbf);color:#fff;overflow-y:auto}
+.ftitle{font-size:26px;font-weight:800;color:#ffe066;text-align:center}
+.frainbow{width:100%;max-width:320px}
+.frainbow path{stroke-dasharray:100;stroke-dashoffset:100;animation:draw 1.1s forwards}
+@keyframes draw{to{stroke-dashoffset:0}}
+.fchars{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.fch{display:flex;flex-direction:column;align-items:center;background:#ffffff22;border-radius:16px;padding:6px 10px;animation:popIn .4s backwards}
+.fch span{font-size:32px}
+.fch i{font-style:normal;font-size:12px;font-weight:700}
+.fmsg{display:flex;align-items:center;gap:10px;background:#ffffff18;border-radius:18px;padding:10px 16px;font-weight:700;text-align:right;max-width:92%}
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="screen-splash" class="screen"></div>
+  <div id="screen-map" class="screen"></div>
+  <div id="screen-levels" class="screen"></div>
+  <div id="screen-game" class="screen"></div>
+  <div id="screen-finale" class="screen"></div>
+  <div id="overlay"></div>
+</div>
+
+<script>
+/* ================= أدوات ================= */
+const $=s=>document.querySelector(s);
+function el(t,c,h){const e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e}
+function div(c,h){return el('div',c,h)}
+function shuffle(a){a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a}
+function pick(n,arr){return shuffle(arr).slice(0,n)}
+function rnd(a){return a[Math.floor(Math.random()*a.length)]}
+
+/* ================= البيانات ================= */
+const COLORS={
+ red:{ar:'أحمر',f:'حمراء',hex:'#e63946'},
+ orange:{ar:'برتقالي',f:'برتقالية',hex:'#f77f00'},
+ yellow:{ar:'أصفر',f:'صفراء',hex:'#f59f00'},
+ green:{ar:'أخضر',f:'خضراء',hex:'#2f9e44'},
+ blue:{ar:'أزرق',f:'زرقاء',hex:'#3a86ff'},
+ purple:{ar:'بنفسجي',f:'بنفسجية',hex:'#9b5de5'},
+};
+const CITEMS={
+ red:['🍎','🌹','🍓','🍅','🚒','🍄','❤️','🌶️'],
+ blue:['🫐','🐳','🦋','💧','🧊','🐦','🔵','🌊'],
+ yellow:['🍌','🍋','⭐','🌻','🧀','🐤','🌙','🍯'],
+ green:['🌳','🍀','🥒','🐸','🥝','🌵','🍏','🦖'],
+ orange:['🍊','🥕','🦊','🎃','🏀','🦁','🧡','🍞'],
+ purple:['🍇','🍆','🦄','🔮','👾','🎻','💜','🟣'],
+};
+const SHAPES={
+ circle:{ar:'دايرة',the:'الدايرة',fem:true},
+ square:{ar:'مربع',the:'المربع',fem:false},
+ star:{ar:'نجمة',the:'النجمة',fem:true},
+ triangle:{ar:'مثلث',the:'المثلث',fem:false},
+};
+const NUMW={2:'اتنين',3:'تلاتة',4:'أربعة',5:'خمسة'};
+const SIZEW={big:'الكبيرة',small:'الصغيرة',medium:'الوسطة'};
+const SIZEADJ={big:'كبير',small:'صغير',medium:'وسط'};
+const SIZEPX={small:52,medium:88,big:128};
+
+const WORDER=['red','blue','yellow','green','orange','purple','rainbow'];
+const WORLDS={
+ red:{name:'الغابة الحمراء',ch:'🐰',chName:'روبي',c:'#e63946',bg:'linear-gradient(180deg,#fff0f0,#ffc9c9)',trans:0,decor:['🍎','🌹','🍓'],story:'قوس قزح فقد اللون الأحمر! ساعدني أجمعه من الغابة'},
+ blue:{name:'المحيط الأزرق',ch:'🐳',chName:'بلبل',c:'#3a86ff',bg:'linear-gradient(180deg,#e7f5ff,#a5d8ff)',trans:-3,decor:['💧','🐟','🫐'],story:'المحيط بي فقد لونه... ساعدني أجمع الأزرق وأبني بيتي'},
+ yellow:{name:'الصحراء المشرقة',ch:'🦊',chName:'سمسم',c:'#f08c00',bg:'linear-gradient(180deg,#fff9db,#ffe066)',trans:4,decor:['⭐','🌻','🍋'],story:'الشمس صفرا ودائرية! تعال نلعب بالأشكال'},
+ green:{name:'الغابة الخضرا',ch:'🐸',chName:'جوجو',c:'#2f9e44',bg:'linear-gradient(180deg,#ebfbee,#b2f2bb)',trans:-5,decor:['🍀','🌿','🍃'],story:'أنا بعشق أوراق الشجر... بس بمقاسات معينة!'},
+ orange:{name:'وادي البرتقال',ch:'🦁',chName:'ليو',c:'#e8590c',bg:'linear-gradient(180deg,#fff4e6,#ffd8a8)',trans:2,decor:['🍊','🥕','🌟'],story:'أنا ليو! بعشق البرتقال... تعال نعد مع بعض'},
+ purple:{name:'القلعة البنفسجية',ch:'🦄',chName:'لولو',c:'#9b5de5',bg:'linear-gradient(180deg,#f3f0ff,#d0bfff)',trans:-1,decor:['⭐','🔮','🍇'],story:'عندي لعبة ذاكرة سحرية... تحب تجرب؟'},
+ rainbow:{name:'جبل قوس قزح',ch:'🐉',chName:'دراكو',c:'#7048e8',bg:'linear-gradient(180deg,#fff0f6,#d0bfff)',trans:7,decor:['🌈','✨','🎈'],story:'كل الألوان هترجع هنا... يلا نبنى قوس قزح عملاق!'},
+};
+const REWARDS={red:'🎩 قبعة لومي',blue:'👕 تيشيرت قوس قزح',yellow:'🕶️ نظارة الشمس',green:'🐶 جرو لطيف',orange:'🏅 ميدالية الشجاعة',purple:'🏠 ديكور القلعة',rainbow:'🐉 صديق التنين'};
+
+const LEVELS={
+ red1:{w:'red',e:'find',t:'دوّر على الأحمر',cfg:{color:'red',count:3,total:9}},
+ red2:{w:'red',e:'pop',t:'فرقّع الأحمر',cfg:{color:'red',count:6,palette:['red','blue','yellow'],speed:1300,dur:6500}},
+ red3:{w:'red',e:'find',t:'أسرار الغابة',cfg:{color:'red',count:4,total:12}},
+ red4:{w:'red',e:'sort',t:'سلال روبي',cfg:{baskets:['red','blue','yellow'],items:['red','blue','yellow','red','yellow','blue']}},
+ red5:{w:'red',e:'pop',t:'🎉 مهرجان الأحمر',cfg:{color:'red',count:8,palette:['red','blue','yellow','green'],speed:1050,dur:6000,intro:'🎉 يلا نشغل المهرجان! فرقّع كل البالونات الحمرا!'}},
+ blue1:{w:'blue',e:'find',t:'كنوز البحر',cfg:{color:'blue',count:3,total:9}},
+ blue2:{w:'blue',e:'build',t:'🏠 بيت بلبل',cfg:{color:'blue',need:4}},
+ blue3:{w:'blue',e:'pop',t:'فقاعات!',cfg:{color:'blue',count:6,palette:['blue','red','green'],speed:1300,dur:6500,style:'bubble'}},
+ blue4:{w:'blue',e:'sort',t:'ترتيب المحار',cfg:{baskets:['blue','red','green'],items:['blue','red','green','blue','green','red']}},
+ blue5:{w:'blue',e:'find',t:'المحيط السحيق',cfg:{color:'blue',count:5,total:12}},
+ yel1:{w:'yellow',e:'cshape',t:'أشكال وشُحَن',cfg:{rounds:[{s:'circle',c:'yellow'},{s:'square',c:'yellow'},{s:'triangle',c:'red'}]}},
+ yel2:{w:'yellow',e:'cshape',t:'نجوم الصحراء',cfg:{rounds:[{s:'star',c:'yellow'},{s:'circle',c:'blue'},{s:'triangle',c:'green'}]}},
+ yel3:{w:'yellow',e:'paint',t:'🎨 لوّن الصحراء',cfg:{parts:[{shape:'circle',name:'الشمس',color:'yellow'},{shape:'triangle',name:'الخيمة',color:'orange'}]}},
+ yel4:{w:'yellow',e:'cshape',t:'تحدي الأشكال',cfg:{rounds:[{s:'circle',c:'yellow'},{s:'square',c:'blue'},{s:'star',c:'red'},{s:'triangle',c:'green'}]}},
+ yel5:{w:'yellow',e:'find',t:'كنز سمسم',cfg:{color:'yellow',count:4,total:12}},
+ grn1:{w:'green',e:'size',t:'ورق جوجو',cfg:{rounds:[{t:'big',emoji:'🍃',word:'الورقة'},{t:'big',emoji:'🍀',word:'الورقة'},{t:'big',emoji:'🌿',word:'الورقة'}]}},
+ grn2:{w:'green',e:'size',t:'أصغر ورقة',cfg:{rounds:[{t:'small',emoji:'🍃',word:'الورقة'},{t:'small',emoji:'🍀',word:'الورقة'},{t:'small',emoji:'🌿',word:'الورقة'}]}},
+ grn3:{w:'green',e:'size',t:'الوسط بالظبط',cfg:{rounds:[{t:'medium',emoji:'🍃',word:'الورقة'},{t:'medium',emoji:'🍀',word:'الورقة'},{t:'medium',emoji:'🌿',word:'الورقة'}]}},
+ grn4:{w:'green',e:'size',t:'لعبة المقاييس',cfg:{rounds:[{t:'big',emoji:'🍃',word:'الورقة'},{t:'small',emoji:'🍀',word:'الورقة'},{t:'big',emoji:'🌿',word:'الورقة'},{t:'small',emoji:'🍃',word:'الورقة'}]}},
+ grn5:{w:'green',e:'find',t:'الغابة السرية',cfg:{color:'green',count:4,total:12}},
+ org1:{w:'orange',e:'count',t:'اتنين برتقال',cfg:{emoji:'🍊',word:'برتقالات',count:2,cells:8,decoys:['🍋','🍎','🍇']}},
+ org2:{w:'orange',e:'count',t:'تلاتة!',cfg:{emoji:'🍊',word:'برتقالات',count:3,cells:9,decoys:['🍋','🍎','🍇']}},
+ org3:{w:'orange',e:'count',t:'أربعة!',cfg:{emoji:'🍊',word:'برتقالات',count:4,cells:9,decoys:['🍋','🍎','🍇','🍓']}},
+ org4:{w:'orange',e:'count',t:'خمسة!',cfg:{emoji:'🍊',word:'برتقالات',count:5,cells:12,decoys:['🍋','🍎','🍇','🍓']}},
+ org5:{w:'orange',e:'count',t:'🎉 حفلة العد',cfg:{emoji:'🍊',word:'برتقالات',count:5,cells:12,decoys:['🍋','🍎','🍇','🍓','🥕']}},
+ pur1:{w:'purple',e:'mem',t:'كروت لولو',cfg:{pairs:[{s:'star',c:'red'},{s:'star',c:'blue'},{s:'star',c:'yellow'}]}},
+ pur2:{w:'purple',e:'look',t:'احفظ الشكل',cfg:{rounds:3,options:3}},
+ pur3:{w:'purple',e:'mem',t:'ذاكرة القلعة',cfg:{pairs:[{s:'circle',c:'red'},{s:'square',c:'blue'},{s:'star',c:'green'},{s:'triangle',c:'yellow'}]}},
+ pur4:{w:'purple',e:'mem',t:'تحدي الألوان',cfg:{pairs:[{s:'star',c:'purple'},{s:'star',c:'red'},{s:'circle',c:'blue'},{s:'square',c:'green'}]}},
+ pur5:{w:'purple',e:'look',t:'عين الصقر',cfg:{rounds:3,options:4}},
+ rbw1:{w:'rainbow',e:'countshape',t:'نجوم الحديقة',cfg:{rounds:[{count:2,shape:'star',color:'yellow'},{count:3,shape:'circle',color:'red'}]}},
+ rbw2:{w:'rainbow',e:'picksize',t:'التحدي الكبير',cfg:{rounds:[{emoji:'🍎',word:'التفاحة',color:'red',size:'big'},{emoji:'🍌',word:'الموزة',color:'yellow',size:'small'},{emoji:'⭐',word:'النجمة',color:'purple',size:'medium'}]}},
+ rbw3:{w:'rainbow',e:'mem',t:'ذاكرة التنين',cfg:{pairs:[{s:'circle',c:'red'},{s:'star',c:'yellow'},{s:'triangle',c:'green'},{s:'square',c:'blue'}]}},
+ rbw4:{w:'rainbow',e:'sort',t:'ترتيب قوس قزح',cfg:{baskets:['red','yellow','green','purple'],items:['red','red','yellow','yellow','green','green','purple','purple']}},
+ rbw5:{w:'rainbow',e:'rainbow',t:'🌈 قوس قزح العملاق',cfg:{}},
+};
+const LEVELS_BY_WORLD={};Object.keys(LEVELS).forEach(id=>{const w=LEVELS[id].w;if(!LEVELS_BY_WORLD[w])LEVELS_BY_WORLD[w]=[];LEVELS_BY_WORLD[w].push(id)});
+const LEVEL_ORDER=Object.keys(LEVELS);
+
+/* ================= الحفظ ================= */
+const SKEY='lumi_colors_v1';
+let S=(()=>{try{const d=JSON.parse(localStorage.getItem(SKEY));if(d)return d}catch(e){}return{stars:{},gems:0,rewards:[],sound:true,finale:false}})();
+function save(){localStorage.setItem(SKEY,JSON.stringify(S))}
+function worldDone(w){return LEVELS_BY_WORLD[w].every(l=>(S.stars[l]||0)>0)}
+function worldStars(w){return LEVELS_BY_WORLD[w].reduce((a,l)=>a+(S.stars[l]||0),0)}
+function unlockedWorld(i){return i===0||worldDone(WORDER[i-1])}
+
+/* ================= الصوت ================= */
+const Sound={ctx:null,on:S.sound,
+ ensure(){if(!this.ctx){try{this.ctx=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}}if(this.ctx&&this.ctx.state==='suspended')this.ctx.resume()},
+ t(f,d=.15,type='sine',v=.15,delay=0){if(!this.ctx||!S.sound)return;const o=this.ctx.createOscillator(),g=this.ctx.createGain();o.type=type;o.frequency.value=f;const t0=this.ctx.currentTime+delay;g.gain.setValueAtTime(.0001,t0);g.gain.exponentialRampToValueAtTime(v,t0+.02);g.gain.exponentialRampToValueAtTime(.0001,t0+d);o.connect(g).connect(this.ctx.destination);o.start(t0);o.stop(t0+d+.05)},
+ correct(){this.t(523,.12,'triangle',.18);this.t(659,.12,'triangle',.18,.08);this.t(784,.2,'triangle',.18,.16)},
+ wrong(){this.t(220,.2,'sine',.12);this.t(180,.25,'sine',.1,.1)},
+ pop(){this.t(600,.06,'square',.15);this.t(900,.05,'square',.1,.03)},
+ star(i=0){this.t(880+i*180,.16,'triangle',.16)},
+ win(){[523,659,784,1047,1319].forEach((f,i)=>this.t(f,.18,'triangle',.16,i*.12))},
+ tap(){this.t(500,.05,'sine',.07)},
+};
+const Music={timer:null,step:0,trans:0,
+ start(trans=0){this.trans=trans;this.stop();if(!S.sound)return;const pat=[0,4,7,4,9,7,4,2,0,4,7,9,12,9,7,4];
+  this.timer=setInterval(()=>{const n=pat[this.step%pat.length];const f=261.63*Math.pow(2,(n+this.trans)/12);Sound.t(f,.28,'sine',.04);if(this.step%4===0)Sound.t(f/2,.45,'sine',.028);this.step++},330)},
+ stop(){if(this.timer){clearInterval(this.timer);this.timer=null}}
+};
+document.addEventListener('pointerdown',()=>{Sound.ensure();if(S.sound&&!Music.timer)Music.start(Music.trans)},{passive:true});
+
+/* ================= رسم Lumi واللوجو ================= */
+function lumiInner(){return `<path d="M50,10 L61,37 L90,39 L68,58 L75,86 L50,71 L25,86 L32,58 L10,39 L39,37 Z" fill="#ffd93d" stroke="#f5b301" stroke-width="10" stroke-linejoin="round"/>
+<circle cx="43" cy="46" r="4" fill="#333"/><circle cx="57" cy="46" r="4" fill="#333"/>
+<circle cx="44.5" cy="44.5" r="1.4" fill="#fff"/><circle cx="58.5" cy="44.5" r="1.4" fill="#fff"/>
+<path d="M42,54 Q50,63 58,54" stroke="#333" stroke-width="3" fill="none" stroke-linecap="round"/>
+<circle cx="35" cy="52" r="3" fill="#ff8fa3" opacity=".7"/><circle cx="65" cy="52" r="3" fill="#ff8fa3" opacity=".7"/>`}
+function lumiSVG(w=50){return `<svg viewBox="0 0 100 100" width="${w}" height="${w}">${lumiInner()}</svg>`}
+function logoSVG(w=200){return `<svg viewBox="0 0 260 160" width="${w}">
+ ${['#e63946','#f77f00','#ffc300','#2f9e44','#3a86ff','#9b5de5'].map((c,i)=>{const r=105-i*15;return `<path d="M${130-r},145 A${r},${r} 0 0 1 ${130+r},145" stroke="${c}" stroke-width="13" fill="none" stroke-linecap="round"/>`}).join('')}
+ <g fill="#fff" stroke="#dbe4ff" stroke-width="3"><circle cx="34" cy="140" r="17"/><circle cx="56" cy="132" r="21"/><circle cx="76" cy="142" r="14"/></g>
+ <g fill="#fff" stroke="#dbe4ff" stroke-width="3"><circle cx="226" cy="140" r="17"/><circle cx="204" cy="132" r="21"/><circle cx="184" cy="142" r="14"/></g>
+ <g transform="translate(80,45) scale(.8)">${lumiInner()}</g>
+</svg>`}
+function finaleRainbowSVG(){const cols=['#e63946','#f77f00','#ffc300','#2f9e44','#3a86ff','#9b5de5'];
+ const paths=cols.map((c,i)=>{const r=130-i*20;return `<path d="M${150-r},160 A${r},${r} 0 0 1 ${150+r},160" stroke="${c}" stroke-width="16" fill="none" stroke-linecap="round" pathLength="100" style="animation-delay:${i*.15}s"/>`}).join('');
+ return `<svg class="frainbow" viewBox="0 0 300 180">${paths}
+ <g fill="#fff"><circle cx="22" cy="158" r="18"/><circle cx="44" cy="150" r="22"/><circle cx="64" cy="160" r="15"/><circle cx="278" cy="158" r="18"/><circle cx="256" cy="150" r="22"/><circle cx="236" cy="160" r="15"/></g></svg>`}
+
+/* ================= تأثيرات ================= */
+function burst(elm,color){const ar=$('#app').getBoundingClientRect(),r=elm.getBoundingClientRect();
+ const cx=r.left+r.width/2-ar.left,cy=r.top+r.height/2-ar.top;
+ for(let i=0;i<8;i++){const p=el('div','particle');p.style.left=cx+'px';p.style.top=cy+'px';p.style.background=color||'#ffd93d';$('#app').append(p);
+  const a=Math.PI*2*i/8+Math.random(),d=36+Math.random()*40;
+  p.animate([{transform:'translate(-50%,-50%) scale(1)',opacity:1},{transform:`translate(calc(-50% + ${Math.cos(a)*d}px),calc(-50% + ${Math.sin(a)*d}px)) scale(.2)`,opacity:0}],{duration:500+Math.random()*250,easing:'ease-out'}).onfinish=()=>p.remove()}}
+function floatText(elm,txt){const ar=$('#app').getBoundingClientRect(),r=elm.getBoundingClientRect();
+ const s=el('span','floaty',txt);s.style.left=(r.left+r.width/2-ar.left)+'px';s.style.top=(r.top-ar.top)+'px';$('#app').append(s);
+ s.animate([{transform:'translate(-50%,-50%)',opacity:1},{transform:'translate(-50%,-170%)',opacity:0}],{duration:800}).onfinish=()=>s.remove()}
+function confetti(n=36){const colors=['#e63946','#f77f00','#ffc300','#2f9e44','#3a86ff','#9b5de5'];const ar=$('#app');
+ for(let i=0;i<n;i++){const p=el('div','confetti');p.style.left=Math.random()*100+'%';p.style.background=rnd(colors);ar.append(p);
+  p.animate([{transform:'translateY(-20px) rotate(0deg)',opacity:1},{transform:`translateY(${ar.clientHeight+50}px) rotate(${720*Math.random()}deg)`,opacity:.8}],{duration:1800+Math.random()*1600,delay:Math.random()*600,easing:'cubic-bezier(.2,.6,.6,1)'}).onfinish=()=>p.remove()}}
+function toast(t){const d=el('div','toast',t);$('#app').append(d);setTimeout(()=>d.remove(),1900)}
+function shapeEl(s,c,size,outline){const d=el('div','shape');d.style.width=d.style.height=size+'px';
+ if(outline){d.style.background='#fff';d.style.boxShadow='inset 0 0 0 3px #cfcfcf'}else d.style.background=COLORS[c].hex;
+ if(s==='circle')d.style.borderRadius='50%';
+ else if(s==='square')d.style.borderRadius='14px';
+ else if(s==='star')d.style.clipPath='polygon(50% 0%,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)';
+ else if(s==='triangle')d.style.clipPath='polygon(50% 2%,4% 96%,96% 96%)';
+ return d}
+function flyClone(src,dst,fill){const ar=$('#app').getBoundingClientRect(),sr=src.getBoundingClientRect(),dr=dst.getBoundingClientRect();
+ const cl=src.cloneNode(true);cl.classList.add('flyer');cl.style.left=(sr.left-ar.left)+'px';cl.style.top=(sr.top-ar.top)+'px';cl.style.width=sr.width+'px';cl.style.height=sr.height+'px';$('#app').append(cl);
+ cl.animate([{transform:'translate(0,0) scale(1)'},{transform:`translate(${dr.left-sr.left}px,${dr.top-sr.top}px) scale(.75)`}],{duration:480,easing:'ease-in-out'}).onfinish=()=>{cl.remove();dst.classList.add('filled');if(fill)fill(dst)}}
+
+/* ================= حالة اللعبة ================= */
+let Game=null;
+function show(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));$('#'+id).classList.add('active')}
+function say(t){const b=$('#bubbleText');if(!b)return;b.textContent=t;const bb=$('#bubble');bb.classList.remove('bump');void bb.offsetWidth;bb.classList.add('bump')}
+function updProg(){const p=$('#prog');if(p)p.textContent=`⭐ ${Game.p}/${Game.total}`}
+function progress(){Game.p++;const pr=$('#prog');if(pr){pr.textContent=`⭐ ${Game.p}/${Game.total}`;pr.classList.remove('pulse');void pr.offsetWidth;pr.classList.add('pulse')}
+ if(Game.p>=Game.total&&!Game.done)setTimeout(win,500)}
+function fail(elm,hint){if(Game.done)return;Game.m++;Sound.wrong();if(navigator.vibrate)navigator.vibrate(60);
+ if(elm){elm.classList.remove('shake');void elm.offsetWidth;elm.classList.add('shake')}
+ if(hint)say(hint)}
+
+/* ================= محركات الألعاب ================= */
+const ENGINES={
+ find(cfg){Game.total=cfg.count;updProg();
+  say(cfg.intro||`دوّر على ${cfg.count} حاجات ${COLORS[cfg.color].ar}!`);
+  const others=[];const oc=Object.keys(CITEMS).filter(c=>c!==cfg.color);
+  while(others.length<cfg.total-cfg.count)others.push(rnd(CITEMS[rnd(oc)]));
+  const cells=shuffle([...pick(cfg.count,CITEMS[cfg.color]).map(e=>({e,ok:1})),...others.map(e=>({e,ok:0}))]);
+  const grid=div('find-grid'+(cells.length>9?' dense':''));
+  cells.forEach(cell=>{const b=el('button','item',cell.e);
+   b.onclick=()=>{if(Game.done)return;
+    if(cell.ok){if(b.classList.contains('found'))return;b.classList.add('found');Sound.correct();burst(b,'#ffd93d');floatText(b,'+⭐');progress()}
+    else fail(b,`مش ${COLORS[cfg.color].ar}! دوّر كويس 👀`)};
+   grid.append(b)});
+  $('#gameArea').append(grid)},
+
+ pop(cfg){Game.total=cfg.count;updProg();
+  say(cfg.intro||`فرقّع ${cfg.count} ${cfg.style==='bubble'?'فقاعات':'بالونات'} ${COLORS[cfg.color].ar}!`);
+  const area=$('#gameArea');area.classList.add('pop-area');
+  const spawn=()=>{if(Game.done)return;const c=rnd(cfg.palette);
+   const b=div('balloon'+(cfg.style==='bubble'?' bubble':''));
+   b.style.background=`radial-gradient(circle at 35% 30%, #ffffffaa, ${COLORS[c].hex})`;
+   b.style.left=(6+Math.random()*76)+'%';
+   b.style.animationDuration=(cfg.dur*(.8+Math.random()*.5)/1000)+'s';
+   b.onclick=()=>{if(Game.done)return;
+    if(c===cfg.color){Sound.pop();burst(b,COLORS[c].hex);floatText(b,'+⭐');b.remove();progress()}
+    else fail(b,'دي مش صح! 👀')};
+   b.addEventListener('animationend',()=>b.remove());
+   area.append(b)};
+  spawn();spawn();
+  Game.timers.push(setInterval(spawn,cfg.speed))},
+
+ sort(cfg){const items=shuffle(cfg.items);Game.total=items.length;updProg();
+  say('حط كل حاجة في السلة اللي لونها زيها!');
+  let idx=0;const emoji=el('div','sort-item',rnd(CITEMS[items[0]]));
+  const stage=div('sort-stage');stage.append(emoji);
+  const baskets=div('baskets');
+  cfg.baskets.forEach(c=>{const b=el('button','basket',`<span class="bk">🧺</span><span>${COLORS[c].ar}</span>`);
+   b.style.background=COLORS[c].hex;
+   b.onclick=()=>{if(Game.done)return;
+    if(c===items[idx]){Sound.correct();emoji.classList.add('fly');
+     setTimeout(()=>{idx++;progress();if(idx<items.length&&!Game.done){emoji.classList.remove('fly');emoji.textContent=rnd(CITEMS[items[idx]])}},350)}
+    else fail(b,'السلة دي مش صح! 👀')};
+   baskets.append(b)});
+  $('#gameArea').append(stage,baskets)},
+
+ cshape(cfg){const rounds=cfg.rounds;Game.total=rounds.length;updProg();let r=0;
+  const grid=div('cs-grid');
+  const show=()=>{grid.innerHTML='';const t=rounds[r];
+   say(`هات الشكل اللي لونه ${COLORS[t.c].ar} وشكله ${SHAPES[t.s].ar}!`);
+   const opts=new Set([t.s+'_'+t.c]);
+   while(opts.size<4){const s=rnd(Object.keys(SHAPES)),c=rnd(Object.keys(COLORS));if(!(s===t.s&&c===t.c))opts.add(s+'_'+c)}
+   shuffle([...opts]).forEach(k=>{const[s,c]=k.split('_');const card=el('button','cs-card');card.append(shapeEl(s,c,58));
+    card.onclick=()=>{if(Game.done)return;
+     if(s===t.s&&c===t.c){Sound.correct();burst(card,COLORS[c].hex);r++;progress();if(r<rounds.length&&!Game.done)setTimeout(show,450)}
+     else fail(card,'مش ده! بص كويس 👀')};
+    grid.append(card)})};
+  show();$('#gameArea').append(grid)},
+
+ size(cfg){const rounds=cfg.rounds;Game.total=rounds.length;updProg();let r=0;
+  const grid=div('cs-grid');
+  const show=()=>{grid.innerHTML='';const t=rounds[r];
+   say(`هات ${t.word} ${SIZEW[t.t]}!`);
+   shuffle(['small','medium','big']).forEach(sz=>{const c=el('button','size-card',`<span style="font-size:${SIZEPX[sz]}px">${t.emoji}</span>`);
+    c.onclick=()=>{if(Game.done)return;
+     if(sz===t.t){Sound.correct();burst(c,'#69db7c');r++;progress();if(r<rounds.length&&!Game.done)setTimeout(show,450)}
+     else fail(c,'مش دي! بص كويس 👀')};
+    grid.append(c)})};
+  show();$('#gameArea').append(grid)},
+
+ count(cfg){Game.total=cfg.count;updProg();
+  say(`هاتلي ${NUMW[cfg.count]} ${cfg.word}!`);
+  const decoys=Array.from({length:cfg.cells-cfg.count},()=>rnd(cfg.decoys));
+  const cells=shuffle([...Array(cfg.count).fill(cfg.emoji),...decoys]);
+  const grid=div('find-grid dense');
+  cells.forEach(e=>{const b=el('button','item',e);const isT=e===cfg.emoji;
+   b.onclick=()=>{if(Game.done)return;
+    if(isT){if(b.classList.contains('found'))return;b.classList.add('found');Sound.correct();burst(b,'#ffd93d');floatText(b,'+⭐');progress()}
+    else fail(b,`دوّر على ${cfg.word}! 🍊`)};
+   grid.append(b)});
+  $('#gameArea').append(grid)},
+
+ mem(cfg){Game.total=cfg.pairs.length;updProg();
+  say('اقلب الكروت ودوّر على كل زوج شبه بعضه!');
+  const deck=shuffle(cfg.pairs.flatMap((p,i)=>[{...p,id:i},{...p,id:i}]));
+  const grid=div('mem-grid');grid.style.gridTemplateColumns=`repeat(${deck.length<=6?3:4},1fr)`;
+  let open=[],lock=false;
+  deck.forEach(card=>{const c=el('button','mcard',`<div class="inner"><div class="face front">؟</div><div class="face back"></div></div>`);
+   c.querySelector('.back').append(shapeEl(card.s,card.c,42));
+   c.onclick=()=>{if(lock||Game.done||c.classList.contains('flip'))return;
+    Sound.tap();c.classList.add('flip');open.push({c,card});
+    if(open.length===2){lock=true;const[a,b]=open;
+     if(a.card.id===b.card.id){Sound.correct();burst(b.c,'#ffd93d');a.c.classList.add('matched');b.c.classList.add('matched');open=[];lock=false;progress()}
+     else{Game.m++;Sound.wrong();setTimeout(()=>{a.c.classList.remove('flip');b.c.classList.remove('flip');open=[];lock=false},750)}}};
+   grid.append(c)});
+  $('#gameArea').append(grid)},
+
+ look(cfg){const rounds=cfg.rounds;Game.total=rounds;updProg();let r=0;
+  const stage=div('look-stage');const big=el('div','look-big');stage.append(big);
+  const opts=div('cs-grid');
+  const show=()=>{big.innerHTML='';big.classList.remove('hide');opts.innerHTML='';
+   const t={s:rnd(Object.keys(SHAPES)),c:rnd(Object.keys(COLORS))};
+   big.append(shapeEl(t.s,t.c,82));say('بص كويس واحفظ! 👀');Sound.tap();
+   setTimeout(()=>{big.classList.add('hide');say('فين الشكل اللي شفته؟');renderOpts(t)},1600)};
+  const renderOpts=t=>{const set=new Set([t.s+'_'+t.c]);
+   while(set.size<cfg.options){const s=rnd(Object.keys(SHAPES)),c=rnd(Object.keys(COLORS));if(!(s===t.s&&c===t.c))set.add(s+'_'+c)}
+   shuffle([...set]).forEach(k=>{const[s,c]=k.split('_');const b=el('button','cs-card');b.append(shapeEl(s,c,52));
+    b.onclick=()=>{if(Game.done)return;
+     if(s===t.s&&c===t.c){Sound.correct();burst(b,'#ffd93d');r++;progress();if(r<rounds&&!Game.done)setTimeout(show,500)}
+     else fail(b,'مش ده! 👀')};
+    opts.append(b)})};
+  $('#gameArea').append(stage,opts);show()},
+
+ paint(cfg){const parts=cfg.parts;Game.total=parts.length;updProg();let pi=0,sel=null;
+  const stage=div('paint-stage');const area=div('paint-area');stage.append(area);
+  const pal=div('palette');
+  ['red','orange','yellow','green','blue'].forEach(c=>{const s=el('button','swatch');s.style.background=COLORS[c].hex;
+   s.onclick=()=>{sel=c;pal.querySelectorAll('.swatch').forEach(x=>x.classList.remove('sel'));s.classList.add('sel');Sound.tap()};
+   pal.append(s)});
+  const show=()=>{area.innerHTML='';const p=parts[pi];
+   say(`لوّن ${p.name} باللون ${COLORS[p.color].ar}!`);
+   const sh=shapeEl(p.shape,null,130,true);
+   sh.onclick=()=>{if(Game.done||!sel)return;
+    if(sel===p.color){sh.style.background=COLORS[p.color].hex;sh.style.boxShadow='none';sh.classList.add('painted');Sound.correct();burst(sh,COLORS[p.color].hex);pi++;progress();if(pi<parts.length&&!Game.done)setTimeout(show,650)}
+    else fail(sh,`ده مش ${COLORS[p.color].ar}! اختار ${COLORS[p.color].ar}`)};
+   area.append(sh)};
+  $('#gameArea').append(stage,pal);show()},
+
+ build(cfg){Game.total=cfg.need;updProg();let filled=0;
+  say(`بلبل عايز يبني بيته! دوس على الحاجات ${COLORS[cfg.color].f}!`);
+  const scene=div('build-scene');const house=div('house');
+  const roof=div('roof');const wall=div('wall');const slots=div('slots');
+  const slotEls=[];for(let i=0;i<cfg.need;i++){const s=div('slot');slots.append(s);slotEls.push(s)}
+  wall.append(slots);house.append(roof,wall);scene.append(house);
+  const tray=div('tray');
+  const others=Array.from({length:3},()=>rnd(Object.keys(COLORS).filter(c=>c!==cfg.color)));
+  shuffle([...Array(cfg.need).fill(cfg.color),...others]).forEach(c=>{
+   const it=el('button','item small',rnd(CITEMS[c]));
+   it.onclick=()=>{if(Game.done||filled>=cfg.need)return;
+    if(c===cfg.color){Sound.correct();const txt=it.textContent;
+     flyClone(it,slotEls[filled],sl=>sl.textContent=txt);filled++;progress();it.style.visibility='hidden'}
+    else fail(it,`دي مش ${COLORS[cfg.color].ar}! 👀`)};
+   tray.append(it)});
+  $('#gameArea').append(scene,tray)},
+
+ picksize(cfg){const rounds=cfg.rounds;Game.total=rounds.length;updProg();let r=0;
+  const grid=div('cs-grid');
+  const show=()=>{grid.innerHTML='';const t=rounds[r];
+   say(`هات ${t.word} اللي لونها ${COLORS[t.color].ar} ومقاسها ${SIZEADJ[t.size]}!`);
+   const combos=new Set([t.color+'_'+t.size]);
+   while(combos.size<4){const c=rnd(Object.keys(COLORS)),s=rnd(['small','medium','big']);if(!(c===t.color&&s===t.size))combos.add(c+'_'+s)}
+   shuffle([...combos]).forEach(k=>{const[c,s]=k.split('_');
+    const b=el('button','cs-card',`<span style="font-size:${Math.round(SIZEPX[s]*.62)}px">${t.emoji}</span>`);
+    b.onclick=()=>{if(Game.done)return;
+     if(c===t.color&&s===t.size){Sound.correct();burst(b,'#ffd93d');r++;progress();if(r<rounds.length&&!Game.done)setTimeout(show,450)}
+     else fail(b,'مش دي! بص كويس 👀')};
+    grid.append(b)})};
+  show();$('#gameArea').append(grid)},
+
+ countshape(cfg){const rounds=cfg.rounds;Game.total=rounds.reduce((a,r)=>a+r.count,0);updProg();
+  let ri=0,got=0;
+  const wrap=div('count-wrap');const counter=el('div','pill counter');const grid=div('cs-grid');
+  wrap.append(counter,grid);
+  const show=()=>{grid.innerHTML='';got=0;const rd=rounds[ri];
+   counter.textContent=`${SHAPES[rd.shape].the} ${COLORS[rd.color].f}: 0/${rd.count}`;
+   say(`هات ${NUMW[rd.count]} من ${SHAPES[rd.shape].the} ${COLORS[rd.color][SHAPES[rd.shape].fem?'f':'ar']}!`);
+   const cells=shuffle([...Array(rd.count).fill(true),...Array(6).fill(false)]);
+   cells.forEach(isT=>{const s=isT?rd.shape:rnd(Object.keys(SHAPES).filter(x=>x!==rd.shape));
+    const c=isT?rd.color:rnd(Object.keys(COLORS).filter(x=>x!==rd.color));
+    const b=el('button','cs-card');b.append(shapeEl(s,c,46));
+    b.onclick=()=>{if(Game.done)return;
+     if(isT&&!b.classList.contains('done')){b.classList.add('done');b.style.opacity=.3;Sound.correct();burst(b,'#ffd93d');got++;
+      counter.textContent=`${SHAPES[rd.shape].the} ${COLORS[rd.color].f}: ${got}/${rd.count}`;progress();
+      if(got>=rd.count&&ri<rounds.length-1&&!Game.done){ri++;setTimeout(show,750)}}
+     else if(!isT)fail(b,'مش دي! 👀')};
+    grid.append(b)})};
+  show();$('#gameArea').append(wrap)},
+
+ rainbow(cfg){const order=['red','orange','yellow','green','blue','purple'];
+  Game.total=order.length;updProg();let idx=0;
+  say('رتّب قوس قزح! ابدأ بالأحمر');
+  const sky=div('rb-sky');
+  const slotEls=order.map((c,i)=>{const s=div('rb-slot');s.style.width=(250-i*27)+'px';sky.append(s);return s});
+  const tray=div('tray');
+  shuffle([...order]).forEach(c=>{const b=el('button','band');b.style.background=COLORS[c].hex;
+   b.onclick=()=>{if(Game.done)return;
+    if(c===order[idx]){Sound.correct();flyClone(b,slotEls[idx],sl=>sl.style.background=COLORS[c].hex);
+     idx++;progress();if(idx<order.length&&!Game.done)say(`جميل! دلوقتي: ${COLORS[order[idx]].ar}`)}
+    else fail(b,`الأول: ${COLORS[order[idx]].ar}!`)};
+   tray.append(b)});
+  $('#gameArea').append(sky,tray)},
+};
+
+/* ================= تشغيل مستوى ================= */
+function startLevel(lid){
+ if(Game&&Game.timers)Game.timers.forEach(t=>clearInterval(t));
+ const L=LEVELS[lid],w=WORLDS[L.w];
+ Game={lid,L,m:0,p:0,total:0,timers:[],done:false};
+ Music.trans=w.trans;Music.start(w.trans);
+ const sc=$('#screen-game');sc.style.background=w.bg;
+ sc.innerHTML=`
+  <div class="gbar">
+    <button class="cbtn" id="gback">🏠</button>
+    <div class="gtitle">${L.t}</div>
+    <div class="pill" id="prog">⭐ 0/0</div>
+  </div>
+  <div class="bubble-row"><div class="char">${w.ch}</div><div class="bubble" id="bubble"><span id="bubbleText"></span></div></div>
+  <div id="gameArea"></div>
+  <div id="lumiBtn">${lumiSVG(46)}</div>`;
+ show('screen-game');
+ const ga=$('#gameArea');
+ const dec=div('decor');
+ w.decor.forEach(e=>{const s=el('span','',e);s.style.left=(5+Math.random()*85)+'%';s.style.top=(8+Math.random()*68)+'%';s.style.animationDelay=(Math.random()*4)+'s';dec.append(s)});
+ ga.append(dec);
+ $('#gback').onclick=()=>{Sound.tap();Game.timers.forEach(t=>clearInterval(t));renderLevels(L.w)};
+ $('#lumiBtn').onclick=()=>{Sound.star(2);burst($('#lumiBtn'),'#ffd93d')};
+ ENGINES[L.e](L.cfg);
+}
+
+/* ================= الفوز ================= */
+function win(){Game.done=true;Game.timers.forEach(t=>clearInterval(t));Game.timers=[];
+ Sound.win();confetti(42);
+ const stars=Game.m===0?3:Game.m<=2?2:1;
+ S.stars[Game.lid]=Math.max(S.stars[Game.lid]||0,stars);S.gems+=stars;
+ let reward=null;const wi=WORDER.indexOf(Game.L.w);
+ if(worldDone(Game.L.w)&&!S.rewards.includes(wi)){S.rewards.push(wi);reward=REWARDS[Game.L.w]}
+ save();
+ const isLast=Game.lid==='rbw5';
+ const nextId=LEVEL_ORDER[LEVEL_ORDER.indexOf(Game.lid)+1];
+ const ov=$('#overlay');ov.classList.add('show');
+ ov.innerHTML=`<div class="vcard">
+   <div class="vtitle">${Game.m===0?'ممتاز! 🌟':'أحسنت! 🎉'}</div>
+   <div class="vstars">${[0,1,2].map(i=>`<span class="vstar" id="vs${i}">⭐</span>`).join('')}</div>
+   <div class="vgems">+${stars} 💎</div>
+   ${reward?`<div class="vreward">🎁 هدية جديدة: ${reward}</div>`:''}
+   <div class="vbtns">
+     <button class="btn small" id="vReplay">🔁</button>
+     <button class="btn small" id="vMap">🗺️</button>
+     <button class="btn small main" id="vNext">${isLast?'🌈':'التالي ▶️'}</button>
+   </div></div>`;
+ [0,1,2].forEach(i=>{if(i<stars)setTimeout(()=>{const s=$('#vs'+i);if(s){s.classList.add('earned');Sound.star(i)}},500+i*450)});
+ $('#vReplay').onclick=()=>{Sound.tap();ov.classList.remove('show');ov.innerHTML='';startLevel(Game.lid)};
+ $('#vMap').onclick=()=>{Sound.tap();ov.classList.remove('show');ov.innerHTML='';renderMap()};
+ $('#vNext').onclick=()=>{Sound.tap();ov.classList.remove('show');ov.innerHTML='';isLast?renderFinale():startLevel(nextId)};
+}
+
+/* ================= الشاشات ================= */
+function renderSplash(){
+ $('#screen-splash').innerHTML=`<div class="splash">
+  <div class="floaties">${['🍎','⭐','🫐','🍋','🍀','🍇','🍊','🦋'].map((e,i)=>`<span style="--d:${(i*.6).toFixed(1)}s;--x:${(i*12+4)}%">${e}</span>`).join('')}</div>
+  ${logoSVG(250)}
+  <h1>مغامرة الألوان</h1>
+  <p>ساعد Lumi يرجّع قوس قزح! 🌈</p>
+  <button class="btn main big" id="startBtn">ابدأ المغامرة! 🚀</button>
+  <div class="hint">للأطفال 3 – 6 سنوات ✨ الفصل الأول: الألوان</div>
+ </div>`;
+ show('screen-splash');
+ $('#startBtn').onclick=()=>{Sound.ensure();Sound.correct();renderMap()};
+}
+
+function renderMap(){
+ const total=Object.values(S.stars).reduce((a,b)=>a+b,0);
+ $('#screen-map').innerHTML=`
+  <div class="mhead">
+    ${logoSVG(74)}
+    <div class="mtag">مغامرة الألوان</div>
+    <div class="mstats">
+      <span class="pill">⭐ ${total}</span>
+      <span class="pill">💎 ${S.gems}</span>
+      <button class="cbtn" id="sndBtn">${S.sound?'🔊':'🔇'}</button>
+      <button class="cbtn" id="rstBtn">⚙️</button>
+    </div>
+  </div>
+  <div class="map-scroll">
+   <div class="lumi-hello">${lumiSVG(50)}<span>هيا نرجّع الألوان!</span></div>
+   ${WORDER.map((w,i)=>{const W=WORLDS[w],locked=!unlockedWorld(i),done=worldDone(w);
+    return `<div class="map-line"></div>
+    <button class="wnode ${locked?'locked':''}" style="--c:${W.c}" data-w="${w}">
+      <span class="wch">${locked?'🔒':W.ch}</span>
+      <span class="wname">${W.name}</span>
+      <span class="wstars">${done?'🌈 مكتمل!':'⭐ '+worldStars(w)+' / 15'}</span>
+    </button>`}).join('')}
+   <div class="map-line"></div>
+   <div class="map-end">🌈</div>
+  </div>
+  <div class="rewards-row">${S.rewards.length?S.rewards.map(i=>`<span class="rchip">${REWARDS[WORDER[i]]}</span>`).join(''):'<span class="rchip dim">🎁 هدية بعد كل عالم!</span>'}</div>`;
+ show('screen-map');
+ Music.trans=0;if(S.sound)Music.start(0);
+ document.querySelectorAll('.wnode').forEach(b=>b.onclick=()=>{
+  if(b.classList.contains('locked')){toast('خلّص العالم اللي قبله الأول 🔒');Sound.wrong();return}
+  Sound.tap();renderLevels(b.dataset.w)});
+ $('#sndBtn').onclick=()=>{S.sound=!S.sound;save();Sound.on=S.sound;
+  if(!S.sound)Music.stop();else{Sound.ensure();Music.start(Music.trans)}
+  $('#sndBtn').textContent=S.sound?'🔊':'🔇';Sound.tap()};
+ $('#rstBtn').onclick=()=>{if(confirm('هتمسح كل التقدم وتبدأ من الأول؟')){localStorage.removeItem(SKEY);location.reload()}};
+}
+
+function renderLevels(w){
+ const W=WORLDS[w];
+ $('#screen-levels').innerHTML=`
+  <div class="whead" style="--c:${W.c}">
+   <button class="cbtn" id="lback">🗺️</button>
+   <div class="wtitle">${W.name}</div>
+  </div>
+  <div class="wstory"><div class="char">${W.ch}</div><div class="bubble"><span><b>${W.chName}:</b> ${W.story}</span></div></div>
+  <div class="levels">
+   ${LEVELS_BY_WORLD[w].map((lid,i)=>{const st=S.stars[lid]||0;
+    const open=i===0||(S.stars[LEVELS_BY_WORLD[w][i-1]]||0)>0;
+    return `<button class="lv ${open?'':'locked'}" data-l="${lid}">
+      <span>${open?(i+1)+' — '+LEVELS[lid].t:'🔒'}</span>
+      <span class="lvstars">${open?(st?'⭐'.repeat(st):'▶ ابدأ!'):''}</span>
+    </button>`}).join('')}
+  </div>
+  <div class="lumi-tip">${lumiSVG(40)}<span>اجمع ⭐⭐⭐ في كل مستوى!</span></div>`;
+ show('screen-levels');
+ Music.trans=W.trans;if(S.sound)Music.start(W.trans);
+ $('#lback').onclick=()=>{Sound.tap();renderMap()};
+ document.querySelectorAll('.lv').forEach(b=>b.onclick=()=>{
+  if(b.classList.contains('locked')){toast('خلّص المستوى اللي قبله الأول 🔒');Sound.wrong();return}
+  Sound.tap();startLevel(b.dataset.l)});
+}
+
+function renderFinale(){
+ if(!S.finale){S.finale=true;S.gems+=20;save()}
+ $('#screen-finale').innerHTML=`<div class="finale">
+  <div class="ftitle">🌈 النهاية الكبرى! 🌈</div>
+  ${finaleRainbowSVG()}
+  <div class="fchars">${WORDER.map((w,i)=>`<div class="fch" style="animation-delay:${i*.15}s"><span>${WORLDS[w].ch}</span><i>${WORLDS[w].chName}</i></div>`).join('')}</div>
+  <div class="fmsg">${lumiSVG(48)}<p>رجّعت الألوان كلها! 🥳<br>دراكو وكل أصحابك بيقولولك: <b>برافو!</b><br><b>+20 💎</b></p></div>
+  <button class="btn main" id="fBack">🗺️ ارجع للخريطة</button>
+ </div>`;
+ show('screen-finale');confetti(90);Sound.win();
+ $('#fBack').onclick=()=>{Sound.tap();renderMap()};
+}
+
+/* يلا نبدأ! */
+renderSplash();
+</script>
+</body>
+</html>
